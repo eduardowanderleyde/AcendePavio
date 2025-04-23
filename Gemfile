@@ -47,4 +47,6 @@ end
 
 gem 'graphql'
 gem 'graphiql-rails'
+gem 'devise'
+gem 'devise-jwt'
 

@@ -10,5 +10,7 @@ module Types
     end
 
     field :create_post, mutation: Mutations::CreatePost
+    field :create_comment, mutation: Mutations::CreateComment
+    field :sign_in_user, mutation: Mutations::SignInUser
   end
 end

@@ -32,6 +32,15 @@ module Types
     field :post, Types::PostType, null: false, description: "Returns a single post" do
       argument :id, ID, required: true
     end
+    field :categories, [Types::CategoryType], null: false, description: "Returns a list of categories"
+    field :category, Types::CategoryType, null: false, description: "Returns a single category" do
+      argument :id, ID, required: true
+    end
+    field :tags, [Types::TagType], null: false, description: "Returns a list of tags"
+    field :users, [Types::UserType], null: false, description: "Returns a list of users"
+    field :user, Types::UserType, null: false, description: "Returns a single user" do
+      argument :id, ID, required: true
+    end
 
     def posts
       Post.all
@@ -39,6 +48,26 @@ module Types
 
     def post(id:)
       Post.find(id)
+    end
+
+    def categories
+      Category.all
+    end
+
+    def category(id:)
+      Category.find(id)
+    end
+
+    def tags
+      Tag.all
+    end
+
+    def users
+      User.all
+    end
+
+    def user(id:)
+      User.find(id)
     end
   end
 end
