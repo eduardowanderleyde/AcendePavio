@@ -1,25 +1,39 @@
 # Blog GraphQL API
 
-Desenvolvido por Eduardo Wanderley
+[![Ruby](https://img.shields.io/badge/Ruby-3.2.2-red.svg)](https://www.ruby-lang.org/)
+[![Rails](https://img.shields.io/badge/Rails-7.1.5-red.svg)](https://rubyonrails.org/)
+[![GraphQL](https://img.shields.io/badge/GraphQL-Latest-pink.svg)](https://graphql.org/)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Author](https://img.shields.io/badge/Author-Eduardo%20Wanderley-green.svg)](https://github.com/eduardowanderleyde)
 
-## Sobre o Projeto
+<div align="center">
+  <img src="https://raw.githubusercontent.com/github/explore/e65ef46ef3e7bc457c93622f6a89fe8d3fd131d5/topics/graphql/graphql.png" alt="GraphQL" width="100"/>
+  <br>
+  <strong>Uma API moderna e flexível para blog usando GraphQL e Ruby on Rails</strong>
+</div>
 
-Este é um projeto de API GraphQL para um blog, desenvolvido com Ruby on Rails. O sistema inclui:
+## 🚀 Sobre o Projeto
 
-- Sistema completo de autenticação JWT
-- CRUD de posts com categorias e tags
-- Sistema de comentários aninhados
-- API GraphQL moderna e bem estruturada
+Este é um projeto moderno de API GraphQL para blog, desenvolvido com Ruby on Rails. O sistema oferece uma experiência rica em recursos para gerenciamento de conteúdo.
 
-## Tecnologias Utilizadas
+### ✨ Características
 
-- Ruby 3.2.2
-- Rails 7.1.5
-- GraphQL
-- Devise + JWT para autenticação
-- SQLite3 (desenvolvimento)
+- 🔐 Autenticação JWT segura
+- 📝 CRUD completo de posts
+- 🏷️ Sistema de categorias e tags
+- 💬 Comentários aninhados
+- 🎯 API GraphQL otimizada
+- 📚 Documentação completa
 
-## Como Executar
+## 🛠️ Tecnologias Utilizadas
+
+- 💎 Ruby 3.2.2
+- 🛤️ Rails 7.1.5
+- 📊 GraphQL
+- 🔒 Devise + JWT
+- 🗄️ SQLite3 (desenvolvimento)
+
+## 🚀 Como Executar
 
 1. Clone o repositório
 
@@ -48,7 +62,7 @@ rails server
 
 5. Acesse o GraphiQL em `http://localhost:3000/graphiql`
 
-## Exemplos de Queries
+## 📚 Exemplos de Uso
 
 ### Criar um usuário
 
@@ -86,10 +100,20 @@ mutation {
 }
 ```
 
-## Contato
+## 🤝 Contribuindo
+
+Contribuições são sempre bem-vindas! Para contribuir:
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📫 Contato
 
 Eduardo Wanderley - [GitHub](https://github.com/eduardowanderleyde)
 
-## Licença
+## 📝 Licença
 
-Este projeto está sob a licença MIT.
+Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
