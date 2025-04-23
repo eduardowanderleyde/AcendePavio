@@ -1,8 +1,24 @@
 # frozen_string_literal: true
 
+# Schema GraphQL para o Blog API
+# Desenvolvido por Eduardo Wanderley
+# https://github.com/eduardowanderleyde
+
 class MyGraphqlAppSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
+
+  # Configurações para otimização de queries N+1
+  use GraphQL::Batch
+
+  # Tratamento de erros personalizado
+  rescue_from(ActiveRecord::RecordNotFound) do |err, obj, args, ctx, field|
+    raise GraphQL::ExecutionError, "#{field.type.unwrap.graphql_name} não encontrado"
+  end
+
+  rescue_from(ActiveRecord::RecordInvalid) do |err, obj, args, ctx, field|
+    raise GraphQL::ExecutionError, err.record.errors.full_messages.join(", ")
+  end
 
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   use GraphQL::Dataloader

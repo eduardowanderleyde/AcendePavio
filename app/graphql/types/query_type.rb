@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
+# Query Type principal da API GraphQL do Blog
+# Desenvolvido por Eduardo Wanderley
+# https://github.com/eduardowanderleyde
+
 module Types
   class QueryType < Types::BaseObject
+    description "Query root da API GraphQL do Blog por Eduardo Wanderley"
+
     field :node, Types::NodeType, null: true, description: "Fetches an object given its ID." do
       argument :id, ID, required: true, description: "ID of the object."
     end
@@ -28,17 +34,17 @@ module Types
       "Hello World!"
     end
 
-    field :posts, [Types::PostType], null: false, description: "Returns a list of posts"
-    field :post, Types::PostType, null: false, description: "Returns a single post" do
+    field :posts, [Types::PostType], null: false, description: "Retorna uma lista de posts"
+    field :post, Types::PostType, null: false, description: "Retorna um post específico" do
       argument :id, ID, required: true
     end
-    field :categories, [Types::CategoryType], null: false, description: "Returns a list of categories"
-    field :category, Types::CategoryType, null: false, description: "Returns a single category" do
+    field :categories, [Types::CategoryType], null: false, description: "Retorna uma lista de categorias"
+    field :category, Types::CategoryType, null: false, description: "Retorna uma categoria específica" do
       argument :id, ID, required: true
     end
-    field :tags, [Types::TagType], null: false, description: "Returns a list of tags"
-    field :users, [Types::UserType], null: false, description: "Returns a list of users"
-    field :user, Types::UserType, null: false, description: "Returns a single user" do
+    field :tags, [Types::TagType], null: false, description: "Retorna uma lista de tags"
+    field :users, [Types::UserType], null: false, description: "Retorna uma lista de usuários"
+    field :user, Types::UserType, null: false, description: "Retorna um usuário específico" do
       argument :id, ID, required: true
     end
 
