@@ -93,8 +93,15 @@ GEM
       reline (>= 0.3.8)
     drb (2.2.1)
     erubi (1.13.1)
+    fiber-storage (1.0.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphiql-rails (1.10.4)
+      railties
+    graphql (2.5.4)
+      base64
+      fiber-storage
+      logger
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.0)
@@ -228,6 +235,8 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  graphiql-rails
+  graphql
   puma (>= 5.0)
   rails (~> 7.1.5)
   sqlite3 (>= 1.4)
