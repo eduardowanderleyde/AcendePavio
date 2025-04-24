@@ -48,6 +48,16 @@ module Types
       argument :id, ID, required: true
     end
 
+    field :products, [Types::ProductType], null: false do
+      description "Lista todos os produtos"
+      argument :category_id, ID, required: false
+    end
+
+    field :product, Types::ProductType, null: true do
+      description "Busca um produto pelo ID"
+      argument :id, ID, required: true
+    end
+
     def posts
       Post.all
     end
@@ -74,6 +84,18 @@ module Types
 
     def user(id:)
       User.find(id)
+    end
+
+    def products(category_id: nil)
+      if category_id
+        Product.where(category_id: category_id)
+      else
+        Product.all
+      end
+    end
+
+    def product(id:)
+      Product.find_by(id: id)
     end
   end
 end

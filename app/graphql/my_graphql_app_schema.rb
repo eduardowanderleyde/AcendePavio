@@ -8,6 +8,21 @@ class MyGraphqlAppSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 
+  # Para debug
+  if Rails.env.development?
+    max_depth 20
+    max_complexity 300
+  end
+
+  # Configuração do GraphQL::Batch
+  use GraphQL::Batch
+
+  # Tratamento de erros
+  rescue_from(StandardError) do |err, obj, args, ctx, field|
+    Rails.logger.error(err)
+    raise GraphQL::ExecutionError, "Ocorreu um erro ao processar sua requisição"
+  end
+
   # Configurações para otimização de queries N+1
   use GraphQL::Batch
 
