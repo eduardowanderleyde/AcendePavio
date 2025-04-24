@@ -1,0 +1,28 @@
+# GraphQL
+gem 'graphql'
+gem 'graphiql-rails'
+
+# Autenticação
+gem 'devise'
+gem 'devise-jwt'
+
+# Upload de imagens
+gem 'carrierwave'
+gem 'mini_magick'
+
+# Paginação
+gem 'kaminari'
+
+# Busca
+gem 'ransack'
+
+# Pagamentos
+gem 'stripe'
+
+# CORS
+gem 'rack-cors'
+
+group :development do
+  gem 'annotate'
+  gem 'bullet'
+end 
