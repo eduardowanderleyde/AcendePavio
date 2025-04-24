@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-6">
+    <% if @product.image.attached? %>
+      <%= image_tag @product.image, class: 'img-fluid rounded' %>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <h1 class="mb-4"><%= @product.name %></h1>
+    
+    <div class="mb-4">
+      <h2 class="h4 text-primary mb-3"><%= number_to_currency(@product.price) %></h2>
+      <p class="text-muted"><%= @product.description %></p>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="h5 mb-3">Categorias:</h3>
+      <div class="d-flex gap-2">
+        <% @product.categories.each do |category| %>
+          <span class="badge bg-secondary"><%= category.name %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="input-group">
+        <input type="number" class="form-control" value="1" min="1" max="<%= @product.stock %>" id="quantity">
+        <button class="btn btn-primary">Adicionar ao Carrinho</button>
+      </div>
+      <small class="text-muted">Estoque disponível: <%= @product.stock %></small>
+    </div>
+  </div>
+</div>
+
+<% if @related_products.any? %>
+  <div class="related-products mt-5">
+    <h3 class="mb-4">Produtos Relacionados</h3>
+    
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      <% @related_products.each do |product| %>
+        <div class="col">
+          <div class="card h-100">
+            <% if product.image.attached? %>
+              <%= image_tag product.image, class: 'card-img-top' %>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= product.name %></h5>
+              <p class="card-text"><%= number_to_currency(product.price) %></p>
+              <%= link_to 'Ver Detalhes', product_path(product), class: 'btn btn-outline-primary' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

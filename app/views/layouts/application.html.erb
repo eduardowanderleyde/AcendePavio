@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Loja Pavio - Moda Autoral em Recife</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Moda autoral feminina com design próprio, feita em Recife. Macaquitos, camisas, tops e shorts com estilo único.">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <%= yield :head %>
+
+    <style>
+      :root {
+        --primary-color: #FF6B6B;
+        --secondary-color: #4ECDC4;
+        --accent-color: #FFE66D;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .navbar-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color) !important;
+      }
+
+      .nav-link {
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.9rem;
+      }
+
+      .footer {
+        margin-top: auto;
+        background-color: #2C3E50;
+      }
+
+      .social-icons a {
+        color: white;
+        font-size: 1.5rem;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: var(--primary-color);
+      }
+
+      .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25D366;
+        color: white;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        text-decoration: none;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .whatsapp-float:hover {
+        transform: scale(1.1);
+        color: white;
+      }
+
+      <%= yield :styles %>
+    </style>
+  </head>
+
+  <body>
+    <!-- Anúncio de Frete -->
+    <div class="bg-dark text-white py-2 text-center">
+      <small>Frete Grátis para Recife em compras acima de R$ 200 🚚</small>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+      <div class="container">
+        <%= link_to 'Loja Pavio', root_path, class: 'navbar-brand' %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <%= link_to 'Início', root_path, class: "nav-link #{current_page?(root_path) ? 'active' : ''}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Novidades', products_path(category: 'novidades'), class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Coleção', products_path, class: "nav-link #{current_page?(products_path) ? 'active' : ''}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Sobre Nós', '#', class: 'nav-link' %>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center">
+            <% if user_signed_in? %>
+              <%= link_to cart_path, class: 'btn btn-link position-relative me-2' do %>
+                <i class="fas fa-shopping-bag"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                  0
+                </span>
+              <% end %>
+              <%= link_to 'Minha Conta', '#', class: 'btn btn-outline-dark me-2' %>
+              <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-dark' %>
+            <% else %>
+              <%= link_to 'Entrar', new_user_session_path, class: 'btn btn-outline-dark me-2' %>
+              <%= link_to 'Cadastrar', new_user_registration_path, class: 'btn btn-dark' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <% if notice %>
+      <div class="alert alert-success alert-dismissible fade show m-0" role="alert">
+        <%= notice %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+    
+    <% if alert %>
+      <div class="alert alert-danger alert-dismissible fade show m-0" role="alert">
+        <%= alert %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer class="footer py-5 text-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4 mb-md-0">
+            <h5 class="mb-3">Sobre a Loja Pavio</h5>
+            <p class="text-muted mb-0">Moda autoral localizada em Recife, Pernambuco. Peças exclusivas com design próprio, feitas com amor e criatividade.</p>
+            <div class="social-icons mt-3">
+              <a href="https://instagram.com/lojapavio" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/5581972514403" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4 mb-md-0">
+            <h5 class="mb-3">Atendimento</h5>
+            <ul class="list-unstyled text-muted">
+              <li class="mb-2"><i class="fas fa-envelope me-2"></i> acendepavio@gmail.com</li>
+              <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Quintal Criativo, Graças - Recife/PE</li>
+              <li class="mb-2"><i class="fas fa-clock me-2"></i> Seg a Sex: 10h às 19h</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h5 class="mb-3">Newsletter</h5>
+            <p class="text-muted">Receba novidades e promoções exclusivas!</p>
+            <form class="mt-3">
+              <div class="input-group">
+                <input type="email" class="form-control" placeholder="Seu e-mail">
+                <button class="btn btn-primary" type="submit">Assinar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr class="my-4">
+        <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+            <small class="text-muted">© <%= Time.current.year %> Loja Pavio. CNPJ: 08.972.514/0001-03</small>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <img src="https://via.placeholder.com/250x30" alt="Métodos de Pagamento" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/5581972514403" class="whatsapp-float" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </body>
+</html>

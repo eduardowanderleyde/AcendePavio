@@ -1,0 +1,208 @@
+<div class="hero-section position-relative">
+  <div class="hero-content text-center text-white">
+    <div class="container">
+      <h1 class="display-3 fw-bold mb-4">Moda Autoral em Recife</h1>
+      <p class="lead mb-4">Peças exclusivas com personalidade e estilo único</p>
+      <%= link_to 'Ver Nova Coleção', products_path, class: 'btn btn-light btn-lg px-5 py-3' %>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <!-- Categorias -->
+  <div class="categories-section mb-5">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <%= link_to products_path(category: 'tops'), class: 'text-decoration-none' do %>
+          <div class="category-card position-relative rounded overflow-hidden">
+            <img src="https://via.placeholder.com/600x400" alt="Tops" class="img-fluid w-100">
+            <div class="category-overlay d-flex align-items-center justify-content-center">
+              <h3 class="text-white mb-0">Tops</h3>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <%= link_to products_path(category: 'shorts'), class: 'text-decoration-none' do %>
+          <div class="category-card position-relative rounded overflow-hidden">
+            <img src="https://via.placeholder.com/600x400" alt="Shorts" class="img-fluid w-100">
+            <div class="category-overlay d-flex align-items-center justify-content-center">
+              <h3 class="text-white mb-0">Shorts</h3>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Produtos em Destaque -->
+  <div class="featured-products mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="mb-0">Novidades</h2>
+      <%= link_to 'Ver Todos', products_path, class: 'btn btn-outline-dark' %>
+    </div>
+    
+    <div class="row row-cols-2 row-cols-md-4 g-4">
+      <% @featured_products&.each do |product| %>
+        <div class="col">
+          <div class="product-card card border-0 h-100">
+            <% if product.images.attached? %>
+              <div class="product-image-wrapper">
+                <%= image_tag product.main_image, class: 'card-img-top product-image' %>
+                <div class="product-overlay">
+                  <%= link_to 'Ver Detalhes', product_path(product), class: 'btn btn-light' %>
+                </div>
+              </div>
+            <% end %>
+            <div class="card-body px-0 pt-3">
+              <h5 class="card-title mb-2"><%= product.name %></h5>
+              <p class="card-text text-primary fw-bold mb-0"><%= number_to_currency(product.price) %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Instagram Feed -->
+  <div class="instagram-section text-center mb-5">
+    <h2 class="mb-4">@lojapavio no Instagram</h2>
+    <div class="row g-2">
+      <% 6.times do %>
+        <div class="col-4 col-md-2">
+          <div class="instagram-item position-relative">
+            <img src="https://via.placeholder.com/200" alt="Instagram Post" class="img-fluid">
+            <div class="instagram-overlay">
+              <i class="fab fa-instagram"></i>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="mt-4">
+      <a href="https://instagram.com/lojapavio" target="_blank" class="btn btn-outline-dark">Seguir no Instagram</a>
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="newsletter-section text-center py-5 bg-light rounded">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h3 class="mb-3">Fique por dentro das novidades!</h3>
+        <p class="text-muted mb-4">Cadastre-se para receber ofertas exclusivas e lançamentos em primeira mão.</p>
+        <form class="newsletter-form">
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="Seu melhor e-mail">
+            <button class="btn btn-dark px-4" type="submit">Assinar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :styles do %>
+  <style>
+    .hero-section {
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://via.placeholder.com/1920x800') center/cover;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .category-card {
+      transition: transform 0.3s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .category-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+
+    .category-card:hover .category-overlay {
+      background: rgba(0,0,0,0.5);
+    }
+
+    .product-image-wrapper {
+      height: 300px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.05);
+    }
+
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+
+    .instagram-item {
+      aspect-ratio: 1;
+      overflow: hidden;
+    }
+
+    .instagram-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .instagram-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .instagram-overlay i {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .instagram-item:hover .instagram-overlay {
+      opacity: 1;
+    }
+  </style>
+<% end %>
+
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<% end %>

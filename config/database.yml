@@ -1,0 +1,49 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+#
+# Install the pg driver:
+#   gem install pg
+# On macOS with Homebrew:
+#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
+# On Windows:
+#   gem install pg
+#       Choose the win32 build.
+#       Install PostgreSQL and put its /bin directory on your path.
+#
+# Configure Using Gemfile
+# gem "pg"
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: acende_pavio_development
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+
+test:
+  <<: *default
+  database: acende_pavio_test
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+
+# As with config/credentials.yml, you never want to store sensitive information,
+# like your database password, in your source code.
+#
+# Instead, provide the password or a full connection URL as an environment
+# variable when you boot the app.
+#
+# Example:
+#   DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
+#
+# Or:
+#   production:
+#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
+#
+production:
+  <<: *default
+  database: acende_pavio_production
+  username: acende_pavio
+  password: <%= ENV["ACENDE_PAVIO_DATABASE_PASSWORD"] %>
