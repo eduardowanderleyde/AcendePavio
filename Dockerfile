@@ -6,22 +6,30 @@ FROM ruby:3.2.2-slim
 
 # Instala as dependências essenciais
 RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev nodejs npm git curl libvips
+    apt-get install -y build-essential libpq-dev nodejs npm git curl libvips && \
+    rm -rf /var/lib/apt/lists/*
 
 # Define o diretório de trabalho
 WORKDIR /app
+
+# Define variáveis de ambiente para produção
+ENV RAILS_ENV=production \
+    NODE_ENV=production \
+    RAILS_SERVE_STATIC_FILES=true \
+    RAILS_LOG_TO_STDOUT=true
 
 # Copia os arquivos de dependência
 COPY Gemfile Gemfile.lock ./
 
 # Instala as gems
-RUN bundle install
+RUN bundle config set --without 'development test' && \
+    bundle install
 
 # Copia o resto do código
 COPY . .
 
-# Precompila os assets
-RUN bundle exec rails assets:precompile RAILS_ENV=production
+# Precompila os assets com uma chave temporária
+RUN SECRET_KEY_BASE=dummykey RAILS_MASTER_KEY=dummykey bundle exec rails assets:precompile
 
 # Expõe a porta 3000
 EXPOSE 3000
