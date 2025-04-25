@@ -8,50 +8,50 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-# Criando categorias
+# Criando categorias principais
 categories = [
-  'Velas Aromáticas',
-  'Velas Decorativas',
-  'Velas para Presente',
-  'Velas Naturais',
-  'Velas Temáticas'
-].map do |name|
-  Category.find_or_create_by!(name: name)
+  { name: 'Tops', description: 'Blusas e tops com design exclusivo' },
+  { name: 'Shorts', description: 'Shorts confortáveis e estilosos' },
+  { name: 'Vestidos', description: 'Vestidos para todas as ocasiões' },
+  { name: 'Saias', description: 'Saias com personalidade' }
+].map do |category_data|
+  Category.find_or_create_by!(name: category_data[:name]) do |category|
+    category.description = category_data[:description]
+  end
 end
 
-# Limpar produtos existentes
-Product.destroy_all
+puts "✨ Criando produtos..."
 
 # Diretório com as imagens
-image_dir = '/Users/Wander/Downloads/carnaval 2025'
+image_dir = Rails.root.join('app', 'assets', 'images', 'gallery')
 
 # Lista de arquivos de imagem
 image_files = Dir.glob(File.join(image_dir, '*')).select { |f| File.file?(f) }
 
-# Criando produtos com imagens
-30.times do |i|
-  product = Product.create!(
-    name: Faker::Commerce.unique.product_name,
-    description: Faker::Lorem.paragraph(sentence_count: 3),
-    price: Faker::Commerce.price(range: 20..200.0),
-    stock: Faker::Number.between(from: 5, to: 50),
-    user: User.first || User.create!(
-      email: 'admin@example.com',
-      password: 'password',
-      password_confirmation: 'password'
+# Criando produtos para cada categoria
+categories.each do |category|
+  5.times do |i|
+    product = Product.create!(
+      name: "#{category.name} #{Faker::Commerce.product_name}",
+      description: Faker::Lorem.paragraph(sentence_count: 3),
+      price: Faker::Commerce.price(range: 89.0..299.0),
+      stock: Faker::Number.between(from: 5, to: 20),
+      category: category
     )
-  )
-
-  # Associando categorias aleatórias
-  product.categories << categories.sample(rand(1..3))
-
-  # Anexando uma imagem se disponível
-  if i < image_files.length
-    product.image.attach(
-      io: File.open(image_files[i]),
-      filename: File.basename(image_files[i])
-    )
+    
+    # Anexando imagens do carnaval como exemplo
+    3.times do
+      if image_files.any?
+        image_file = image_files.sample
+        product.images.attach(
+          io: File.open(image_file),
+          filename: File.basename(image_file)
+        )
+      end
+    end
   end
 end
 
-puts "Criados #{Category.count} categorias e #{Product.count} produtos!"
+puts "✨ Seed concluído!"
+puts "Criadas #{Category.count} categorias"
+puts "Criados #{Product.count} produtos"

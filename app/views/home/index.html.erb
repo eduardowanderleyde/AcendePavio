@@ -13,21 +13,27 @@
   <div class="categories-section mb-5">
     <div class="row g-4">
       <div class="col-md-6">
-        <%= link_to products_path(category: 'tops'), class: 'text-decoration-none' do %>
+        <%= link_to products_path(category: 'Tops'), class: 'text-decoration-none' do %>
           <div class="category-card position-relative rounded overflow-hidden">
-            <img src="https://via.placeholder.com/600x400" alt="Tops" class="img-fluid w-100">
+            <%= image_tag "gallery/_DSC0015.jpg", class: "img-fluid w-100", style: "height: 400px; object-fit: cover;", alt: "Tops" %>
             <div class="category-overlay d-flex align-items-center justify-content-center">
-              <h3 class="text-white mb-0">Tops</h3>
+              <div class="text-center">
+                <h3 class="text-white mb-2">Tops</h3>
+                <span class="btn btn-light">Ver Coleção</span>
+              </div>
             </div>
           </div>
         <% end %>
       </div>
       <div class="col-md-6">
-        <%= link_to products_path(category: 'shorts'), class: 'text-decoration-none' do %>
+        <%= link_to products_path(category: 'Shorts'), class: 'text-decoration-none' do %>
           <div class="category-card position-relative rounded overflow-hidden">
-            <img src="https://via.placeholder.com/600x400" alt="Shorts" class="img-fluid w-100">
+            <%= image_tag "gallery/_DSC0028.jpg", class: "img-fluid w-100", style: "height: 400px; object-fit: cover;", alt: "Shorts" %>
             <div class="category-overlay d-flex align-items-center justify-content-center">
-              <h3 class="text-white mb-0">Shorts</h3>
+              <div class="text-center">
+                <h3 class="text-white mb-2">Shorts</h3>
+                <span class="btn btn-light">Ver Coleção</span>
+              </div>
             </div>
           </div>
         <% end %>
@@ -64,23 +70,55 @@
     </div>
   </div>
 
-  <!-- Instagram Feed -->
-  <div class="instagram-section text-center mb-5">
-    <h2 class="mb-4">@lojapavio no Instagram</h2>
+  <!-- Galeria de Imagens -->
+  <div class="gallery-section text-center mb-5">
+    <h2 class="mb-4">Carnaval 2025</h2>
     <div class="row g-2">
-      <% 6.times do %>
-        <div class="col-4 col-md-2">
-          <div class="instagram-item position-relative">
-            <img src="https://via.placeholder.com/200" alt="Instagram Post" class="img-fluid">
-            <div class="instagram-overlay">
-              <i class="fab fa-instagram"></i>
-            </div>
-          </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item position-relative">
+          <%= image_tag "gallery/_DSC0015.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
         </div>
-      <% end %>
-    </div>
-    <div class="mt-4">
-      <a href="https://instagram.com/lojapavio" target="_blank" class="btn btn-outline-dark">Seguir no Instagram</a>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item position-relative">
+          <%= image_tag "gallery/_DSC0028.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item position-relative">
+          <%= image_tag "gallery/_DSC0044.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item position-relative">
+          <%= image_tag "gallery/_DSC0073.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item position-relative">
+          <%= image_tag "gallery/_DSC0121.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item position-relative">
+          <%= image_tag "gallery/_DSC0154.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item position-relative">
+          <%= image_tag "gallery/_DSC0177.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item position-relative">
+          <%= image_tag "gallery/_DSC0213.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item position-relative">
+          <%= image_tag "gallery/_DSC0314.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -111,11 +149,14 @@
     }
 
     .category-card {
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      overflow: hidden;
     }
 
     .category-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
     .category-overlay {
@@ -125,11 +166,22 @@
       right: 0;
       bottom: 0;
       background: rgba(0,0,0,0.3);
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .category-card:hover .category-overlay {
       background: rgba(0,0,0,0.5);
+    }
+
+    .category-overlay .btn {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+
+    .category-card:hover .category-overlay .btn {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .product-image-wrapper {
@@ -167,37 +219,37 @@
       opacity: 1;
     }
 
-    .instagram-item {
+    .gallery-item {
       aspect-ratio: 1;
       overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
 
-    .instagram-item img {
+    .gallery-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
     }
 
-    .instagram-overlay {
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-item::after {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: rgba(0,0,0,0.2);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
-    .instagram-overlay i {
-      color: white;
-      font-size: 1.5rem;
-    }
-
-    .instagram-item:hover .instagram-overlay {
+    .gallery-item:hover::after {
       opacity: 1;
     }
   </style>

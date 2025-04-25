@@ -1,74 +1,143 @@
-<div class="row">
-  <div class="col-md-3">
-    <div class="card mb-4">
-      <div class="card-header">
-        <h5 class="mb-0">Filtros</h5>
-      </div>
-      <div class="card-body">
-        <%= form_tag products_path, method: :get, class: 'filter-form' do %>
-          <div class="mb-3">
-            <label class="form-label">Categorias</label>
-            <% Category.all.each do |category| %>
-              <div class="form-check">
-                <%= check_box_tag "categories[]", category.id, params[:categories]&.include?(category.id.to_s), class: 'form-check-input' %>
-                <%= label_tag "categories_#{category.id}", category.name, class: 'form-check-label' %>
-              </div>
-            <% end %>
-          </div>
+<div class="container py-5">
+  <div class="row">
+    <!-- Sidebar com filtros -->
+    <div class="col-lg-3">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white">
+          <h5 class="mb-0">Filtros</h5>
+        </div>
+        <div class="card-body">
+          <%= form_tag products_path, method: :get, class: 'filter-form' do %>
+            <!-- Categorias -->
+            <div class="mb-4">
+              <h6 class="mb-3">Categorias</h6>
+              <% @categories.each do |category| %>
+                <div class="form-check mb-2">
+                  <%= radio_button_tag :category, category.name, params[:category] == category.name, class: 'form-check-input' %>
+                  <%= label_tag "category_#{category.name.downcase}", category.name, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
 
-          <div class="mb-3">
-            <label class="form-label">Preço</label>
-            <div class="input-group mb-2">
-              <%= number_field_tag :min_price, params[:min_price], class: 'form-control', placeholder: 'Mín' %>
-              <span class="input-group-text">-</span>
-              <%= number_field_tag :max_price, params[:max_price], class: 'form-control', placeholder: 'Máx' %>
+            <!-- Preço -->
+            <div class="mb-4">
+              <h6 class="mb-3">Preço</h6>
+              <div class="input-group mb-2">
+                <%= number_field_tag :min_price, params[:min_price], class: 'form-control', placeholder: 'Min' %>
+                <span class="input-group-text">-</span>
+                <%= number_field_tag :max_price, params[:max_price], class: 'form-control', placeholder: 'Max' %>
+              </div>
+            </div>
+
+            <!-- Ordenação -->
+            <div class="mb-4">
+              <h6 class="mb-3">Ordenar por</h6>
+              <%= select_tag :sort, options_for_select([
+                ['Mais recentes', 'newest'],
+                ['Mais antigos', 'oldest'],
+                ['Menor preço', 'price_asc'],
+                ['Maior preço', 'price_desc']
+              ], params[:sort]), class: 'form-select' %>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= submit_tag 'Aplicar Filtros', class: 'btn btn-primary' %>
+              <%= link_to 'Limpar Filtros', products_path, class: 'btn btn-outline-secondary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de Produtos -->
+    <div class="col-lg-9">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">
+          <% if params[:category].present? %>
+            <%= params[:category] %>
+          <% else %>
+            Todos os Produtos
+          <% end %>
+        </h2>
+        <small class="text-muted"><%= @products.total_count %> produtos encontrados</small>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% @products.each do |product| %>
+          <div class="col">
+            <div class="card h-100 product-card border-0 shadow-sm">
+              <% if product.images.attached? %>
+                <div class="product-image-wrapper">
+                  <%= image_tag product.images.first, class: 'card-img-top product-image' %>
+                  <div class="product-overlay">
+                    <%= link_to 'Ver Detalhes', product_path(product), class: 'btn btn-light' %>
+                  </div>
+                </div>
+              <% end %>
+              <div class="card-body">
+                <h5 class="card-title mb-2"><%= product.name %></h5>
+                <p class="card-text text-primary fw-bold mb-0"><%= number_to_currency(product.price) %></p>
+              </div>
             </div>
           </div>
-
-          <%= submit_tag 'Filtrar', class: 'btn btn-primary w-100' %>
         <% end %>
       </div>
-    </div>
-  </div>
 
-  <div class="col-md-9">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Nossos Produtos</h2>
-      <div class="dropdown">
-        <%= select_tag :sort, 
-            options_for_select([
-              ['Mais Recentes', 'newest'],
-              ['Menor Preço', 'price_asc'],
-              ['Maior Preço', 'price_desc']
-            ], params[:sort]),
-            class: 'form-select',
-            onchange: 'this.form.submit()',
-            prompt: 'Ordenar por...' %>
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @products %>
       </div>
-    </div>
-
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <% @products.each do |product| %>
-        <div class="col">
-          <div class="card h-100">
-            <% if product.images.attached? %>
-              <%= image_tag product.main_image, class: "card-img-top product-image" %>
-            <% end %>
-            <div class="card-body">
-              <h5 class="card-title"><%= product.name %></h5>
-              <p class="card-text text-muted"><%= truncate(product.description, length: 100) %></p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="h5 mb-0"><%= number_to_currency(product.price) %></span>
-                <%= link_to 'Ver Detalhes', product_path(product), class: 'btn btn-outline-primary' %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @products if @products.respond_to?(:total_pages) %>
     </div>
   </div>
 </div>
+
+<% content_for :styles do %>
+  <style>
+    .product-card {
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image-wrapper {
+      height: 300px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.05);
+    }
+
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+
+    .filter-form .form-check-input:checked {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+  </style>
+<% end %>

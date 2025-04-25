@@ -10,6 +10,8 @@ gem "bootsnap", require: false
 
 gem 'graphql-batch'
 
+# Instagram API
+gem 'instagram_basic_display'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
