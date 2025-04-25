@@ -143,6 +143,9 @@ GEM
       base64
       fiber-storage
       logger
+    graphql-batch (0.6.0)
+      graphql (>= 1.12.18, < 3)
+      promise.rb (~> 0.7.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.1.0)
@@ -216,6 +219,7 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    promise.rb (0.7.4)
     psych (5.2.3)
       date
       stringio
@@ -344,6 +348,7 @@ DEPENDENCIES
   dotenv-rails
   faker
   graphql
+  graphql-batch
   importmap-rails
   jbuilder
   kaminari
