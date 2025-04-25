@@ -103,8 +103,6 @@ GEM
     benchmark (0.4.0)
     bigdecimal (3.1.9)
     bindex (0.8.1)
-    bootsnap (1.18.4)
-      msgpack (~> 1.2)
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -136,21 +134,15 @@ GEM
     erubi (1.13.1)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
-    ffi (1.17.2-aarch64-linux-gnu)
-    ffi (1.17.2-aarch64-linux-musl)
-    ffi (1.17.2-arm-linux-gnu)
-    ffi (1.17.2-arm-linux-musl)
-    ffi (1.17.2-arm64-darwin)
-    ffi (1.17.2-x86_64-darwin)
-    ffi (1.17.2-x86_64-linux-gnu)
-    ffi (1.17.2-x86_64-linux-musl)
+    fiber-storage (1.0.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphql (2.5.4)
+      base64
+      fiber-storage
+      logger
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    image_processing (1.14.0)
-      mini_magick (>= 4.9.5, < 6)
-      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (2.1.0)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -187,12 +179,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
-    mini_magick (5.2.0)
-      benchmark
-      logger
     mini_mime (1.1.5)
     minitest (5.25.5)
-    msgpack (1.8.0)
     mutex_m (0.3.0)
     net-imap (0.5.7)
       date
@@ -287,9 +275,6 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.1)
-    ruby-vips (2.2.3)
-      ffi (~> 1.12)
-      logger
     rubyzip (2.4.1)
     securerandom (0.4.1)
     selenium-webdriver (4.31.0)
@@ -349,13 +334,12 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3 (~> 1.0)
-  bootsnap
   capybara
   debug
   devise
   dotenv-rails
   faker
-  image_processing (~> 1.2)
+  graphql
   importmap-rails
   jbuilder
   kaminari
@@ -370,7 +354,6 @@ DEPENDENCIES
   sprockets-rails
   stimulus-rails
   turbo-rails
-  tzinfo-data
   web-console
 
 RUBY VERSION
