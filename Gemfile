@@ -29,7 +29,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", ">= 4.0.1"
+gem "redis", ">= 4.0.1"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -44,13 +44,16 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
+
+# AWS SDK
+gem 'aws-sdk-s3', '~> 1.0'
+
+# CORS
+gem 'rack-cors'
 
 # Paginação
 gem 'kaminari'
-
-# Upload de imagens
-gem 'image_processing'
 
 # Autenticação
 gem 'devise'

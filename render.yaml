@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: acende-pavio
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: SECRET_KEY_BASE
+        sync: false
+      - key: DEVISE_SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: acende-pavio-db
+          property: connectionString
+    healthCheckPath: /up
+    autoDeploy: true
+
+databases:
+  - name: acende-pavio-db
+    databaseName: acende_pavio_production
+    user: acende_pavio
+    plan: free 

@@ -1,0 +1,57 @@
+{
+  "name": "Acende Pavio",
+  "description": "E-commerce de produtos",
+  "keywords": [
+    "rails",
+    "ruby",
+    "ecommerce"
+  ],
+  "addons": [
+    "heroku-postgresql",
+    "heroku-redis",
+    "sendgrid"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "RAILS_ENV": {
+      "description": "Ambiente Rails",
+      "value": "production"
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "description": "Servir arquivos estáticos",
+      "value": "enabled"
+    },
+    "RAILS_LOG_TO_STDOUT": {
+      "description": "Log para STDOUT",
+      "value": "enabled"
+    },
+    "SECRET_KEY_BASE": {
+      "description": "Chave secreta do Rails",
+      "generator": "secret"
+    },
+    "DEVISE_SECRET_KEY": {
+      "description": "Chave secreta do Devise",
+      "generator": "secret"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate"
+  }
+} 
