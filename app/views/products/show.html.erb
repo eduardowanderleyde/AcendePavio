@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-6">
-    <% if @product.image.attached? %>
-      <%= image_tag @product.image, class: 'img-fluid rounded' %>
+    <% if @product.main_image&.attached? %>
+      <%= image_tag @product.main_image, class: 'img-fluid rounded' %>
     <% end %>
   </div>
 
@@ -40,8 +40,8 @@
       <% @related_products.each do |product| %>
         <div class="col">
           <div class="card h-100">
-            <% if product.image.attached? %>
-              <%= image_tag product.image, class: 'card-img-top' %>
+            <% if product.main_image&.attached? %>
+              <%= image_tag product.main_image, class: 'card-img-top' %>
             <% end %>
             <div class="card-body">
               <h5 class="card-title"><%= product.name %></h5>

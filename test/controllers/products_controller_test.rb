@@ -2,12 +2,12 @@ require "test_helper"
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get products_index_url
+    get products_url
     assert_response :success
   end
 
   test "should get show" do
-    get products_show_url
+    get product_url(products(:one))
     assert_response :success
   end
 end
