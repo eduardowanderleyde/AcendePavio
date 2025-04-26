@@ -5,4 +5,12 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     get root_url
     assert_response :success
   end
+
+  test "should show categories and products" do
+    Category.create!(name: "Tops")
+    Product.create!(name: "Produto Home", price: 50, stock: 2)
+    get root_url
+    assert_match "Tops", @response.body
+    assert_match "Produto Home", @response.body
+  end
 end
