@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_25_203453) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_26_123000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,7 +107,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_25_203453) do
     t.text "description"
     t.decimal "price"
     t.integer "stock"
-    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "stock_pp"
@@ -117,7 +116,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_25_203453) do
     t.integer "stock_gg"
     t.integer "size"
     t.string "color"
-    t.index ["category_id"], name: "index_products_on_category_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -149,5 +147,4 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_25_203453) do
   add_foreign_key "orders", "users"
   add_foreign_key "post_tags", "posts"
   add_foreign_key "post_tags", "tags"
-  add_foreign_key "products", "categories"
 end

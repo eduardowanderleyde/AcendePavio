@@ -25,30 +25,27 @@ puts "✨ Criando produtos..."
 # Diretório com as imagens
 image_dir = Rails.root.join('app', 'assets', 'images', 'gallery')
 
-# Lista de arquivos de imagem
+# Lista de arquivos de imagem (apenas as 6 que restaram)
 image_files = Dir.glob(File.join(image_dir, '*')).select { |f| File.file?(f) }
+image_files = image_files.first(6) # Garante que só use até 6 imagens
 
 # Criando produtos para cada categoria
-categories.each do |category|
-  5.times do |i|
-    product = Product.create!(
-      name: "#{category.name} #{Faker::Commerce.product_name}",
-      description: Faker::Lorem.paragraph(sentence_count: 3),
-      price: Faker::Commerce.price(range: 89.0..299.0),
-      stock: Faker::Number.between(from: 5, to: 20),
-      category: category
+categories.each_with_index do |category, idx|
+  product = Product.create!(
+    name: "#{category.name} #{Faker::Commerce.product_name}",
+    description: Faker::Lorem.paragraph(sentence_count: 3),
+    price: Faker::Commerce.price(range: 89.0..299.0),
+    stock: Faker::Number.between(from: 5, to: 20)
+  )
+  product.categories << category
+
+  # Anexa 1 imagem apenas ao primeiro produto
+  if idx == 0 && image_files.any?
+    image_file = image_files.sample
+    product.images.attach(
+      io: File.open(image_file),
+      filename: File.basename(image_file)
     )
-    
-    # Anexando imagens do carnaval como exemplo
-    3.times do
-      if image_files.any?
-        image_file = image_files.sample
-        product.images.attach(
-          io: File.open(image_file),
-          filename: File.basename(image_file)
-        )
-      end
-    end
   end
 end
 

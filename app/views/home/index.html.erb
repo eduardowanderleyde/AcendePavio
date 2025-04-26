@@ -74,51 +74,13 @@
   <div class="gallery-section text-center mb-5">
     <h2 class="mb-4">Carnaval 2025</h2>
     <div class="row g-2">
-      <div class="col-6 col-md-4">
-        <div class="gallery-item position-relative">
-          <%= image_tag "gallery/_DSC0015.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+      <% Dir.glob(Rails.root.join('app', 'assets', 'images', 'gallery', '*.jpg')).each do |img_path| %>
+        <div class="col-6 col-md-4">
+          <div class="gallery-item position-relative">
+            <%= image_tag "gallery/#{File.basename(img_path)}", class: "img-fluid rounded", alt: "Carnaval 2025" %>
+          </div>
         </div>
-      </div>
-      <div class="col-6 col-md-4">
-        <div class="gallery-item position-relative">
-          <%= image_tag "gallery/_DSC0028.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
-        </div>
-      </div>
-      <div class="col-6 col-md-4">
-        <div class="gallery-item position-relative">
-          <%= image_tag "gallery/_DSC0044.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
-        </div>
-      </div>
-      <div class="col-6 col-md-4">
-        <div class="gallery-item position-relative">
-          <%= image_tag "gallery/_DSC0073.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
-        </div>
-      </div>
-      <div class="col-6 col-md-4">
-        <div class="gallery-item position-relative">
-          <%= image_tag "gallery/_DSC0121.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
-        </div>
-      </div>
-      <div class="col-6 col-md-4">
-        <div class="gallery-item position-relative">
-          <%= image_tag "gallery/_DSC0154.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
-        </div>
-      </div>
-      <div class="col-6 col-md-4">
-        <div class="gallery-item position-relative">
-          <%= image_tag "gallery/_DSC0177.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
-        </div>
-      </div>
-      <div class="col-6 col-md-4">
-        <div class="gallery-item position-relative">
-          <%= image_tag "gallery/_DSC0213.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
-        </div>
-      </div>
-      <div class="col-6 col-md-4">
-        <div class="gallery-item position-relative">
-          <%= image_tag "gallery/_DSC0314.jpg", class: "img-fluid rounded", alt: "Carnaval 2025" %>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 
