@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6">
-    <% if @product.main_image&.attached? %>
+    <% if @product.images.attached? %>
       <%= image_tag @product.main_image, class: 'img-fluid rounded' %>
     <% end %>
   </div>
@@ -25,7 +25,13 @@
     <div class="mb-4">
       <div class="input-group">
         <input type="number" class="form-control" value="1" min="1" max="<%= @product.stock %>" id="quantity">
-        <button class="btn btn-primary">Adicionar ao Carrinho</button>
+        <% if user_signed_in? %>
+          <%= button_to add_cart_path(current_user.cart, product_id: @product.id), method: :post, class: 'btn btn-primary' do %>
+            Adicionar ao Carrinho
+          <% end %>
+        <% else %>
+          <%= link_to 'Entrar para Comprar', new_user_session_path, class: 'btn btn-primary' %>
+        <% end %>
       </div>
       <small class="text-muted">Estoque disponível: <%= @product.stock %></small>
     </div>
@@ -40,7 +46,7 @@
       <% @related_products.each do |product| %>
         <div class="col">
           <div class="card h-100">
-            <% if product.main_image&.attached? %>
+            <% if product.images.attached? %>
               <%= image_tag product.main_image, class: 'card-img-top' %>
             <% end %>
             <div class="card-body">

@@ -1,0 +1,72 @@
+<div class="container py-5">
+  <h1 class="mb-4">Meu Carrinho</h1>
+
+  <% if @cart.empty? %>
+    <div class="text-center py-5">
+      <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+      <h3 class="text-muted">Seu carrinho está vazio</h3>
+      <p class="text-muted">Adicione produtos para começar a comprar</p>
+      <%= link_to 'Continuar Comprando', products_path, class: 'btn btn-primary' %>
+    </div>
+  <% else %>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <% @cart_items.each do |item| %>
+              <div class="row align-items-center mb-4">
+                <div class="col-md-2">
+                  <% if item.product.images.attached? %>
+                    <%= image_tag item.product.main_image, class: 'img-fluid rounded' %>
+                  <% end %>
+                </div>
+                <div class="col-md-4">
+                  <h5 class="mb-1"><%= item.product.name %></h5>
+                  <p class="text-muted mb-0"><%= number_to_currency(item.product.price) %></p>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <%= form_with url: update_cart_path(@cart, product_id: item.product.id), method: :patch, class: 'd-flex' do |f| %>
+                      <%= f.number_field :quantity, value: item.quantity, min: 1, class: 'form-control' %>
+                      <%= f.submit 'Atualizar', class: 'btn btn-outline-secondary' %>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="col-md-2 text-end">
+                  <h5 class="mb-0"><%= number_to_currency(item.total_price) %></h5>
+                </div>
+                <div class="col-md-1 text-end">
+                  <%= button_to remove_cart_path(@cart, product_id: item.product.id), method: :post, class: 'btn btn-link text-danger' do %>
+                    <i class="fas fa-trash"></i>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-4">Resumo do Pedido</h5>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal</span>
+              <span><%= number_to_currency(@cart.total_price) %></span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Frete</span>
+              <span>Grátis</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between mb-4">
+              <strong>Total</strong>
+              <strong><%= number_to_currency(@cart.total_price) %></strong>
+            </div>
+            <%= link_to 'Finalizar Compra', '#', class: 'btn btn-primary w-100' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
