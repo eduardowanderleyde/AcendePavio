@@ -35,6 +35,11 @@
       </div>
       <small class="text-muted">Estoque disponível: <%= @product.stock %></small>
     </div>
+
+    <% if current_user && current_user.email == 'ewsa@cin.ufpe.br' %>
+      <%= link_to 'Editar', edit_product_path(@product), class: 'btn btn-primary me-2' %>
+      <%= button_to 'Excluir Produto', @product, method: :delete, data: { confirm: 'Tem certeza que deseja excluir este produto?' }, class: 'btn btn-danger' %>
+    <% end %>
   </div>
 </div>
 

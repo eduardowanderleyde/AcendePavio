@@ -1,0 +1,60 @@
+<h1>Editar Produto</h1>
+
+<%= form_with(model: @product, local: true, html: { multipart: true }) do |form| %>
+  <% if @product.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>Erros:</h4>
+      <ul>
+        <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, 'Nome' %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :price, 'Preço' %>
+    <%= form.number_field :price, step: 0.01, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :stock, 'Estoque' %>
+    <%= form.number_field :stock, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, 'Descrição' %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :category_ids, 'Categorias' %>
+    <%= form.collection_select :category_ids, Category.all, :id, :name, {}, { multiple: true, class: 'form-select' } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :images, 'Adicionar novas imagens' %>
+    <%= form.file_field :images, multiple: true, class: 'form-control' %>
+  </div>
+
+  <% if @product.images.attached? %>
+    <div class="mb-3">
+      <strong>Imagens já anexadas:</strong><br>
+      <% @product.images.each do |img| %>
+        <%= image_tag img.variant(resize_to_limit: [120, 120]), class: 'me-2 mb-2 rounded border' %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= form.submit 'Atualizar Produto', class: 'btn btn-primary' %>
+<% end %>
+
+<% if current_user && current_user.email == 'ewsa@cin.ufpe.br' %>
+  <hr>
+  <%= button_to 'Excluir Produto', @product, method: :delete, data: { confirm: 'Tem certeza que deseja excluir este produto?' }, class: 'btn btn-danger' %>
+<% end %> 

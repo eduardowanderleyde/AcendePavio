@@ -67,8 +67,31 @@
           <div class="col">
             <div class="card h-100 product-card border-0 shadow-sm">
               <% if product.images.attached? %>
+                <div id="carousel<%= product.id %>" class="carousel slide product-image-wrapper" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <% product.images.each_with_index do |image, index| %>
+                      <div class="carousel-item <%= 'active' if index == 0 %>">
+                        <%= image_tag image, class: 'card-img-top product-image' %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <% if product.images.count > 1 %>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel<%= product.id %>" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel<%= product.id %>" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Próximo</span>
+                    </button>
+                  <% end %>
+                  <div class="product-overlay">
+                    <%= link_to 'Ver Detalhes', product_path(product), class: 'btn btn-light' %>
+                  </div>
+                </div>
+              <% else %>
                 <div class="product-image-wrapper">
-                  <%= image_tag product.images.first, class: 'card-img-top product-image' %>
+                  <%= image_tag "placeholder.jpg", class: 'card-img-top product-image' %>
                   <div class="product-overlay">
                     <%= link_to 'Ver Detalhes', product_path(product), class: 'btn btn-light' %>
                   </div>
@@ -138,6 +161,31 @@
     .filter-form .form-check-input:checked {
       background-color: #0d6efd;
       border-color: #0d6efd;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 30px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .carousel-control-prev {
+      left: 10px;
+    }
+
+    .carousel-control-next {
+      right: 10px;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      width: 15px;
+      height: 15px;
+      filter: invert(1) grayscale(100);
     }
   </style>
 <% end %>

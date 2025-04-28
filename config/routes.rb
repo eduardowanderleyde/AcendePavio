@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   devise_for :users
   root 'home#index'
   
-  resources :products, only: [:index, :show]
+  resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :categories, only: [:show]
   
   # Namespace para área administrativa

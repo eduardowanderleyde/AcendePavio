@@ -1,5 +1,5 @@
-<div class="hero-section position-relative">
-  <div class="hero-content text-center text-white">
+<div class="hero-section position-relative" style="background: url('<%= asset_path('_DSC0430.jpg') %>') center/cover no-repeat; min-height: 500px;">
+  <div class="hero-content text-center text-white d-flex flex-column justify-content-center align-items-center" style="background: rgba(0,0,0,0.35); min-height: 500px;">
     <div class="container">
       <h1 class="display-3 fw-bold mb-4">Moda Autoral em Recife</h1>
       <p class="lead mb-4">Peças exclusivas com personalidade e estilo único</p>
@@ -15,10 +15,10 @@
       <div class="col-md-6">
         <%= link_to products_path(category: 'Tops'), class: 'text-decoration-none' do %>
           <div class="category-card position-relative rounded overflow-hidden">
-            <%= image_tag "gallery/_DSC0015.jpg", class: "img-fluid w-100", style: "height: 400px; object-fit: cover;", alt: "Tops" %>
+            <%= image_tag "gallery/_DSC0015.jpg", class: "img-fluid w-100", style: "height: 400px; object-fit: cover;", alt: "Camisas" %>
             <div class="category-overlay d-flex align-items-center justify-content-center">
               <div class="text-center">
-                <h3 class="text-white mb-2">Tops</h3>
+                <h3 class="text-white mb-2">Camisas</h3>
                 <span class="btn btn-light">Ver Coleção</span>
               </div>
             </div>
