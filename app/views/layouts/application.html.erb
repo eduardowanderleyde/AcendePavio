@@ -116,7 +116,8 @@
           </ul>
           <div class="d-flex align-items-center">
             <% if user_signed_in? %>
-              <%= link_to cart_path, class: 'btn btn-link position-relative me-2' do %>
+              <% cart = current_user.cart || current_user.create_cart %>
+              <%= link_to cart_path(cart), class: 'btn btn-link position-relative me-2' do %>
                 <i class="fas fa-shopping-bag"></i>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                   0
