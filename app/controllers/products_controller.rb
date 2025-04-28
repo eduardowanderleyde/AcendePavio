@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
                 end
 
     # Paginação
-    @products = @products.page(params[:page]).per(12)
+    @products = @products.order(created_at: :desc).page(params[:page]).per(24)
   end
 
   def show

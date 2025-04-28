@@ -42,7 +42,7 @@
 
             <div class="d-grid gap-2">
               <%= submit_tag 'Aplicar Filtros', class: 'btn btn-primary' %>
-              <%= link_to 'Limpar Filtros', products_path, class: 'btn btn-outline-secondary' %>
+              <%= link_to 'Limpar Filtros', products_path(page: 1), class: 'btn btn-outline-secondary' %>
             </div>
           <% end %>
         </div>
